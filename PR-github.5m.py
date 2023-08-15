@@ -16,6 +16,13 @@ AUTHOR=""
 ORG=""
 ###########################################################################################################
 
+
+if not GITHUB_APIKEY or not AUTHOR or not ORG:
+  print("PR 💀")
+  print("---")
+  print("Missing variables. 💀")
+  exit(0)
+
 CLOSED_MYKINSTA16_PRS=f"https://github.com/{ORG}/mykinsta16/pulls?q=is%3Apr+author:{AUTHOR}+is:closed"
 CLOSED_BILLING_PRS=f"https://github.com/{ORG}/mk-billing-service/pulls?q=is%3Apr+author:{AUTHOR}+is:closed"
 PR_SCRIPT_OUTPUT = []
@@ -58,7 +65,6 @@ def createRequest(url):
     print("---")
     print("Couldn't parse response. 💀")
     print(f"url: {url}. 💀")
-    print(f"message: {response.text}. 💀")
     fallback()
     exit(0)
 
