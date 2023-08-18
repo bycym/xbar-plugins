@@ -14,6 +14,7 @@ CACHE_FILE="not/PR-github.cache"
 GITHUB_APIKEY=""
 AUTHOR=""
 ORG=""
+GITHUB_TEAMMEMBERS=["teamMember1", "teamMember2"]
 ###########################################################################################################
 
 
@@ -28,8 +29,8 @@ CLOSED_BILLING_PRS=f"https://github.com/{ORG}/mk-billing-service/pulls?q=is%3Apr
 PR_SCRIPT_OUTPUT = []
 PR_QUERY=f"?q=type:pr+is:open+author:{AUTHOR}+sort:updated-desc"
 ASSIGNED_QUERY=f"?q=type:pr+is:open+assignee:{AUTHOR}+sort:updated-desc"
+TEAM_REVIEW_QUERY=f"?q=is%3Apr+review-requested:{AUTHOR}+is:open+archived:false+{''.join(str(f'author:{x}+') for x in GITHUB_TEAMMEMBERS)}"
 REVIEW_QUERY=f"?q=is%3Apr+review-requested:{AUTHOR}+is:open+archived:false"
-
 
 def fallback():
   with open(CACHE_FILE, "r") as f:
@@ -65,6 +66,7 @@ def createRequest(url):
     print("---")
     print("Couldn't parse response. 💀")
     print(f"url: {url}. 💀")
+    # print(f"message: {response.text}. 💀")
     fallback()
     exit(0)
 
@@ -80,12 +82,16 @@ def createdPRQuery():
 def assignedQuery():
   url=f'https://api.github.com/search/issues{ASSIGNED_QUERY}'
   return createRequest(url)
+def teamReviewQuery():
+  url=f'https://api.github.com/search/issues{TEAM_REVIEW_QUERY[:-1]}'
+  return createRequest(url)
 def reviewQuery():
   url=f'https://api.github.com/search/issues{REVIEW_QUERY}'
   return createRequest(url)
 
 PRArray = createdPRQuery()
 assignedArray = assignedQuery()
+teamReviewArray = teamReviewQuery()
 reviewArray = reviewQuery()
 
 PR_SCRIPT_OUTPUT = [ f"🌱PR ({len(reviewArray)})" ]
@@ -96,7 +102,7 @@ put(PR_SCRIPT_OUTPUT, f"Closed billing PRs |href={CLOSED_BILLING_PRS}")
 put(PR_SCRIPT_OUTPUT, 'Refresh... | refresh=true')
 # ##### Created PRs #########################################
 put(PR_SCRIPT_OUTPUT, "---")
-put(PR_SCRIPT_OUTPUT, "author:")
+put(PR_SCRIPT_OUTPUT, "📄 author:")
 put(PR_SCRIPT_OUTPUT, "---")
 PR_SCRIPT_OUTPUT += PRArray
 # ##### Assigned PRs ########################################
@@ -104,9 +110,14 @@ put(PR_SCRIPT_OUTPUT, '---')
 put(PR_SCRIPT_OUTPUT, f"assignee ({len(assignedArray)}): | href=https://github.com/issues/{ASSIGNED_QUERY}")
 put(PR_SCRIPT_OUTPUT, "---")
 PR_SCRIPT_OUTPUT += assignedArray
+# ##### Waiting for teammate review ##################################
+put(PR_SCRIPT_OUTPUT, '---')
+put(PR_SCRIPT_OUTPUT, f"👪 Waiting for team review ({len(reviewArray)}): | href=https://github.com/issues/{TEAM_REVIEW_QUERY[:-1]}")
+put(PR_SCRIPT_OUTPUT, "---")
+PR_SCRIPT_OUTPUT += teamReviewArray
 # ##### Waiting for review ##################################
 put(PR_SCRIPT_OUTPUT, '---')
-put(PR_SCRIPT_OUTPUT, f"Waiting for review ({len(reviewArray)}): | href=https://github.com/issues/{REVIEW_QUERY}")
+put(PR_SCRIPT_OUTPUT, f"👀 Waiting for review ({len(reviewArray)}): | href=https://github.com/issues/{REVIEW_QUERY}")
 put(PR_SCRIPT_OUTPUT, "---")
 PR_SCRIPT_OUTPUT += reviewArray
 
