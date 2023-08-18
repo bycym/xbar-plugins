@@ -94,7 +94,7 @@ assignedArray = assignedQuery()
 teamReviewArray = teamReviewQuery()
 reviewArray = reviewQuery()
 
-PR_SCRIPT_OUTPUT = [ f"🌱PR ({len(reviewArray)})" ]
+PR_SCRIPT_OUTPUT = [ f"🌱PR ({len(teamReviewArray)})" ]
 put(PR_SCRIPT_OUTPUT, '---')
 put(PR_SCRIPT_OUTPUT, f"Updated on: {time.ctime()}")
 put(PR_SCRIPT_OUTPUT, f"Closed Mykinsta16 PRs |href={CLOSED_MYKINSTA16_PRS}")
@@ -112,7 +112,7 @@ put(PR_SCRIPT_OUTPUT, "---")
 PR_SCRIPT_OUTPUT += assignedArray
 # ##### Waiting for teammate review ##################################
 put(PR_SCRIPT_OUTPUT, '---')
-put(PR_SCRIPT_OUTPUT, f"👪 Waiting for team review ({len(reviewArray)}): | href=https://github.com/issues/{TEAM_REVIEW_QUERY[:-1]}")
+put(PR_SCRIPT_OUTPUT, f"👪 Waiting for team review ({len(teamReviewArray)}): | href=https://github.com/issues/{TEAM_REVIEW_QUERY[:-1]}")
 put(PR_SCRIPT_OUTPUT, "---")
 PR_SCRIPT_OUTPUT += teamReviewArray
 # ##### Waiting for review ##################################
