@@ -1,4 +1,4 @@
-#!/opt/homebrew/bin/python3
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 import requests
@@ -42,8 +42,11 @@ for x in telexXML.iter('item'):
     feedTime = datetime.datetime.strptime(pubDate, '%a, %d %b %Y %H:%M:%S +%f').strftime('%a %H:%M')
     # pubDate = "zolo"
     title = x.find('title').text.replace('\n', ' ').replace('\r', '')
+    category = x.find('category').text.replace('\n', ' ').replace('\r', '')
+    description = x.find('description').text.replace('\n', ' ').replace('\r', '')
     link = x.find('link').text
-    telexFeed.append("%s" % (f"{feedTime} :: {title} | href={link}"))
+    telexFeed.append("%s" % (f"{feedTime} ~ {category} :: {title}"))
+    telexFeed.append("%s" % (f"--{description} | href={link}"))
 content = '\n'.join(telexFeed)
 print(content)
 # print (response.text)
