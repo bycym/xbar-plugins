@@ -6,6 +6,7 @@ import xml.etree.ElementTree as ET
 import datetime
 import time
 
+MAX_ARTICLES=20
 
 print("📮")
 print("---")
@@ -36,7 +37,11 @@ except:
     fallback()
     exit(0)
 
+count = 0
+
 for x in telexXML.iter('item'):
+    if (count >= MAX_ARTICLES): 
+        break
     # Tue, 26 Apr 2022 08:14:10 +0200
     pubDate = x.find('pubDate').text
     feedTime = datetime.datetime.strptime(pubDate, '%a, %d %b %Y %H:%M:%S +%f').strftime('%a %H:%M')
@@ -47,6 +52,7 @@ for x in telexXML.iter('item'):
     link = x.find('link').text
     telexFeed.append("%s" % (f"{feedTime} ~ {category} :: {title}"))
     telexFeed.append("%s" % (f"--{description} | href={link}"))
+    count = count + 1
 content = '\n'.join(telexFeed)
 print(content)
 # print (response.text)
