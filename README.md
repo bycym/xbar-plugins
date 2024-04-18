@@ -28,3 +28,11 @@ HOST="https://gitlab.bycym.com"
 ```
 
 ![alt tag](https://github.com/bycym/xbar-plugins/blob/main/gitlab.png)
+
+Foxpost Package status
+example env:
+```env
+CODE="my_foxpost_code"
+```
+
+![alt tag](https://github.com/bycym/xbar-plugins/blob/main/foxpost-package.png)
