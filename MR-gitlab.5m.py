@@ -29,7 +29,7 @@ if not GITLAB_TOKEN or not AUTHOR or not ORG or not AUTHOR_ID:
 MERGE_REQUEST_API=f"{HOST}/api/v4/merge_requests"
 
 PR_SCRIPT_OUTPUT = []
-CLOSED_QUERY=f"{HOST}/{ORG}/dashboard/merge_requests?scope=all&state=closed&author_username={AUTHOR}"
+CLOSED_QUERY=f"{HOST}/{ORG}/dashboard/merge_requests?author_username={AUTHOR}&draft=no&scope=all&sort=closed_at&state=merged"
 CREATED_QUERY=f"?author_id={AUTHOR_ID}&state=opened&order_by=updated_at&sort=desc"
 REVIEW_QUERY=f"?scope=all&state=opened&reviewer_username={AUTHOR}&not[author_username]={AUTHOR}&not[approved_by_usernames][]={AUTHOR}&order_by=updated_at&sort=desc"
 ASSIGNED_QUERY=f"?scope=assigned_to_me"
