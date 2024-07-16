@@ -10,7 +10,7 @@ import json
 from base64 import b64encode
 
 # ######## CONFIG ########################################################################################
-CACHE_FILE="not/MR-gitlab.cache"
+CACHE_FILE="/home/<user>/MR-gitlab.cache"
 GITLAB_TOKEN=""
 AUTHOR_ID="" # user id
 AUTHOR=""
@@ -35,10 +35,15 @@ REVIEW_QUERY=f"?scope=all&state=opened&reviewer_username={AUTHOR}&not[author_use
 ASSIGNED_QUERY=f"?scope=assigned_to_me"
 
 def fallback():
-  with open(CACHE_FILE, "r") as f:
-    stored_feed = f.read()
+  try:
+    with open(CACHE_FILE, "r") as f:
+      stored_feed = f.read()
+  except:
+    print(F"No cache file {CACHE_FILE}.")
+    exit(0)
+
   if(len(stored_feed) > 0):
-    print('\n'.join(stored_feed))
+    print(stored_feed)
   else:
     print ("No cache...")  
 
