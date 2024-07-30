@@ -89,14 +89,14 @@ PRArray = createdPRQuery()
 assignedArray = assignedQuery()
 reviewArray = reviewQuery()
 
-PR_SCRIPT_OUTPUT = [ f"🌱MR ({len(reviewArray)})" ]
+PR_SCRIPT_OUTPUT = [ f"🌱MR (👀{len(reviewArray)}:✍️{len(PRArray)})" ]
 put(PR_SCRIPT_OUTPUT, '---')
 put(PR_SCRIPT_OUTPUT, f"Updated on: {time.ctime()}")
 put(PR_SCRIPT_OUTPUT, f"Closed MRs |href={CLOSED_QUERY}")
 put(PR_SCRIPT_OUTPUT, 'Refresh... | refresh=true')
 # ##### Created PRs #########################################
 put(PR_SCRIPT_OUTPUT, "---")
-put(PR_SCRIPT_OUTPUT, "✍️ author:")
+put(PR_SCRIPT_OUTPUT, f"✍️ author ({len(PRArray)}):")
 put(PR_SCRIPT_OUTPUT, "---")
 PR_SCRIPT_OUTPUT += PRArray
 # ##### Assigned PRs ########################################
