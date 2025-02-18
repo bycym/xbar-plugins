@@ -24,8 +24,6 @@ if not GITHUB_APIKEY or not AUTHOR or not ORG:
   print("Missing variables. 💀")
   exit(0)
 
-CLOSED_MYKINSTA16_PRS=f"https://github.com/{ORG}/mykinsta16/pulls?q=is%3Apr+author:{AUTHOR}+is:closed"
-CLOSED_BILLING_PRS=f"https://github.com/{ORG}/mk-billing-service/pulls?q=is%3Apr+author:{AUTHOR}+is:closed"
 PR_SCRIPT_OUTPUT = []
 PR_QUERY=f"?q=type:pr+is:open+author:{AUTHOR}+sort:updated-desc"
 ASSIGNED_QUERY=f"?q=type:pr+is:open+assignee:{AUTHOR}+sort:updated-desc"
@@ -97,8 +95,6 @@ reviewArray = reviewQuery()
 PR_SCRIPT_OUTPUT = [ f"🌱PR ({len(teamReviewArray)})" ]
 put(PR_SCRIPT_OUTPUT, '---')
 put(PR_SCRIPT_OUTPUT, f"Updated on: {time.ctime()}")
-put(PR_SCRIPT_OUTPUT, f"Closed Mykinsta16 PRs |href={CLOSED_MYKINSTA16_PRS}")
-put(PR_SCRIPT_OUTPUT, f"Closed billing PRs |href={CLOSED_BILLING_PRS}")
 put(PR_SCRIPT_OUTPUT, 'Refresh... | refresh=true')
 # ##### Created PRs #########################################
 put(PR_SCRIPT_OUTPUT, "---")
