@@ -69,7 +69,7 @@ def createRequest(url):
     exit(0)
 
   for line in responseJSON['items']:
-    put(result,f"{line['title']} :: ({line['repository_url'].rsplit('/', 1)[-1]}) | href='{line['html_url']}'")
+    put(result,f"{line['title']} :: ({line['repository_url'].rsplit('/', 1)[-1]}) [{line['user']['login']}] | href='{line['html_url']}'")
 
   return result
 
