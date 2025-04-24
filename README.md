@@ -36,3 +36,8 @@ CODE="my_foxpost_code"
 ```
 
 ![alt tag](https://github.com/bycym/xbar-plugins/blob/main/foxpost-package.png)
+
+
+Met.hu radar ([LINK](https://met.hu/idojaras/aktualis_idojaras/radar/))
+
+![alt tag](https://github.com/bycym/xbar-plugins/blob/main/met-radar.png)
