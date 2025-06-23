@@ -27,7 +27,7 @@ if not GITHUB_APIKEY or not AUTHOR or not ORG:
 PR_SCRIPT_OUTPUT = []
 PR_QUERY=f"?q=type:pr+is:open+author:{AUTHOR}+sort:updated-desc"
 ASSIGNED_QUERY=f"?q=type:pr+is:open+assignee:{AUTHOR}+sort:updated-desc"
-TEAM_REVIEW_QUERY=f"?q=is%3Apr+review-requested:{AUTHOR}+is:open+archived:false+{''.join(str(f'author:{x}+') for x in GITHUB_TEAMMEMBERS)}"
+TEAM_REVIEW_QUERY=f"?q=is%3Apr+review-requested:{AUTHOR}+is:open+archived:false+draft:false+{''.join(str(f'author:{x}+') for x in GITHUB_TEAMMEMBERS)}"
 REVIEW_QUERY=f"?q=is%3Apr+review-requested:{AUTHOR}+is:open+archived:false"
 
 def fallback():
