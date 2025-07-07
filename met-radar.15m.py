@@ -39,6 +39,7 @@ emoji_dict = {
     29: "6", # 
     30: "☁️", # borult
     42: "🌦️", # gyenge eső
+    43: "🌧️", # eső
     81: "🌧️", # zápor
     90: "⛈️", # zivatar
 }
@@ -158,7 +159,7 @@ def hourly_weather() -> list:
                 if( not src.startswith('/assets/forecast-icons/')):
                     continue
                 icon_path = int(src.split('/')[-1].split('.')[0])
-                # print(f"icon_path: {icon_path} :: {weather_description}")
+                #print(f"icon_path: {icon_path} :: {weather_description}")
                 weather_emoji = emoji_dict.get(icon_path, "")
 
         # results.append(f"min: {min_val} - max: {max_val}, {', '.join(icons)} | base64: {', '.join([b for b in icons_b64 if b])}")
