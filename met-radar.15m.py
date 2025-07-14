@@ -29,19 +29,20 @@ max_day_weather = 5
 
 # ☀️☁️⛅⛈️🌤️🌥️🌦️🌧️🌨️🌩️⚡❄️
 emoji_dict = {
-    10: "☀️", # derült
-    21: "⛅", # gyengén felhős
-    321: "⛅", # gyengén felhős
-    22: "🌥️", # közepesen felhős
-    23: "☁️", # erősen felhős
-    26: "☁️", # erősen felhős
-    27: "5", # 
-    29: "6", # 
-    30: "☁️", # borult
-    42: "🌦️", # gyenge eső
-    43: "🌧️", # eső
-    81: "🌧️", # zápor
-    90: "⛈️", # zivatar
+    "010": "☀️", #derült
+    "021": "⛅", # gyengén felhős
+    "321": "⛅", # gyengén felhős
+    "022": "🌥️", # közepesen felhős
+    "023": "☁️", # erősen felhős
+    "026": "☁️", # erősen felhős
+    "027": "5", # 
+    "029": "6", # 
+    "030": "☁️", # borult
+    "042": "🌦️", # gyenge eső
+    "043": "🌧️", # eső
+    "043s": "🌧️", # eső viharos széllel
+    "081": "🌧️", # zápor
+    "090": "⛈️", # zivatar
 }
 
 def is_summer_time(timezone) -> bool:
@@ -119,8 +120,8 @@ def daily_weather() -> list:
         for img in col.find_all("img"):
             src = img.get('src', '')
             if src.endswith('.svg'):
-                icon_path = int(src.split('/')[-1].split('.')[0])
-                weather_emoji = emoji_dict.get(icon_path, "")
+                icon_path = src.split('/')[-1].split('.')[0]
+                weather_emoji = emoji_dict.get(str(icon_path), "")
 
 
         # results.append(f"min: {min_val} - max: {max_val}, {', '.join(icons)} | base64: {', '.join([b for b in icons_b64 if b])}")
@@ -158,9 +159,9 @@ def hourly_weather() -> list:
             if src.endswith('.svg'):
                 if( not src.startswith('/assets/forecast-icons/')):
                     continue
-                icon_path = int(src.split('/')[-1].split('.')[0])
+                icon_path = src.split('/')[-1].split('.')[0]
                 #print(f"icon_path: {icon_path} :: {weather_description}")
-                weather_emoji = emoji_dict.get(icon_path, "")
+                weather_emoji = emoji_dict.get(str(icon_path), "")
 
         # results.append(f"min: {min_val} - max: {max_val}, {', '.join(icons)} | base64: {', '.join([b for b in icons_b64 if b])}")
         results.append(f"{weather_emoji} [{hour}] ~ {temperature} [{weather_description}]|href=asd")
