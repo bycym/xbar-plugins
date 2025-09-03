@@ -24,11 +24,14 @@ if not GITHUB_APIKEY or not AUTHOR or not ORG:
   print("Missing variables. 💀")
   exit(0)
 
+CLOSED_PRS=f"https://github.com/pulls?q=is:pr+author:{AUTHOR}+archived:false+is:closed+user:{ORG}"
 PR_SCRIPT_OUTPUT = []
+PR_LINK=f"https://github.com/pulls?q=is:open+is:pr+author:{AUTHOR}+archived:false+org:{ORG}"
+REVIEW_LINK=f"https://github.com/issues?q=is:pr%20review-requested:{AUTHOR}%20is:open%20archived:false%20draft:false%20(%20author:{AUTHOR}{''.join(str(f'%20OR%20author:{x}+') for x in GITHUB_TEAMMEMBERS)})"
 PR_QUERY=f"?q=type:pr+is:open+author:{AUTHOR}+sort:updated-desc"
 ASSIGNED_QUERY=f"?q=type:pr+is:open+assignee:{AUTHOR}+sort:updated-desc"
-TEAM_REVIEW_QUERY=f"?q=is%3Apr+review-requested:{AUTHOR}+is:open+archived:false+draft:false+{''.join(str(f'author:{x}+') for x in GITHUB_TEAMMEMBERS)}"
-REVIEW_QUERY=f"?q=is%3Apr+review-requested:{AUTHOR}+is:open+archived:false"
+TEAM_REVIEW_QUERY=f"?q=is:pr+review-requested:{AUTHOR}+is:open+archived:false+draft:false+{''.join(str(f'author:{x}+') for x in GITHUB_TEAMMEMBERS)}"
+REVIEW_QUERY=f"?q=is:pr+review-requested:{AUTHOR}+is:open+archived:false"
 
 def fallback():
   with open(CACHE_FILE, "r") as f:
@@ -95,6 +98,7 @@ reviewArray = reviewQuery()
 PR_SCRIPT_OUTPUT = [ f"🌱PR ({len(teamReviewArray)})" ]
 put(PR_SCRIPT_OUTPUT, '---')
 put(PR_SCRIPT_OUTPUT, f"Updated on: {time.ctime()}")
+put(PR_SCRIPT_OUTPUT, f"Closed PRs Link |href={CLOSED_PRS}")
 put(PR_SCRIPT_OUTPUT, 'Refresh... | refresh=true')
 # ##### Created PRs #########################################
 put(PR_SCRIPT_OUTPUT, "---")
@@ -108,14 +112,14 @@ put(PR_SCRIPT_OUTPUT, "---")
 PR_SCRIPT_OUTPUT += assignedArray
 # ##### Waiting for teammate review ##################################
 put(PR_SCRIPT_OUTPUT, '---')
-put(PR_SCRIPT_OUTPUT, f"👪 Waiting for team review ({len(teamReviewArray)}): | href=https://github.com/issues/{TEAM_REVIEW_QUERY[:-1]}")
+put(PR_SCRIPT_OUTPUT, f"👪 Waiting for team review ({len(teamReviewArray)}): | href={REVIEW_LINK}")
 put(PR_SCRIPT_OUTPUT, "---")
 PR_SCRIPT_OUTPUT += teamReviewArray
 # ##### Waiting for review ##################################
-put(PR_SCRIPT_OUTPUT, '---')
-put(PR_SCRIPT_OUTPUT, f"👀 Waiting for review ({len(reviewArray)}): | href=https://github.com/issues/{REVIEW_QUERY}")
-put(PR_SCRIPT_OUTPUT, "---")
-PR_SCRIPT_OUTPUT += reviewArray
+#put(PR_SCRIPT_OUTPUT, '---')
+#put(PR_SCRIPT_OUTPUT, f"👀 Waiting for review ({len(reviewArray)}): | href=https://github.com/issues/{REVIEW_QUERY}")
+#put(PR_SCRIPT_OUTPUT, "---")
+#PR_SCRIPT_OUTPUT += reviewArray
 
 content = '\n'.join(PR_SCRIPT_OUTPUT)
 print(content)
