@@ -41,3 +41,7 @@ CODE="my_foxpost_code"
 Met.hu radar ([LINK](https://met.hu/idojaras/aktualis_idojaras/radar/))
 
 ![alt tag](https://github.com/bycym/xbar-plugins/blob/main/met-radar.png)
+
+Headphone battery and remaining battery
+
+![alt text](macos_bluetooth_headphone.png)
