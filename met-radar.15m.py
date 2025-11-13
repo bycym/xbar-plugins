@@ -30,8 +30,8 @@ max_day_weather = 5
 # ☀️☁️⛅⛈️🌤️🌥️🌦️🌧️🌨️🌩️⚡❄️
 emoji_dict = {
     "010": "☀️", #derült
+    "011": "🌫️", # pára
     "021": "⛅", # gyengén felhős
-    "321": "⛅", # gyengén felhős
     "022": "🌥️", # közepesen felhős
     "023": "☁️", # erősen felhős
     "026": "☁️", # erősen felhős
@@ -43,6 +43,12 @@ emoji_dict = {
     "043s": "🌧️", # eső viharos széllel
     "081": "🌧️", # zápor
     "090": "⛈️", # zivatar
+    "100": "🌫️", # köd
+    "310": "☀️", # derült
+    "311": "🌫️", # pára
+    "321": "⛅", # gyengén felhős
+    "330": "☁️", # borult
+    "400": "🌫️", # köd
 }
 
 def is_summer_time(timezone) -> bool:
@@ -121,11 +127,12 @@ def daily_weather() -> list:
             src = img.get('src', '')
             if src.endswith('.svg'):
                 icon_path = src.split('/')[-1].split('.')[0]
+                #print(f"icon_path: {icon_path} :: {weather_description}")
                 weather_emoji = emoji_dict.get(str(icon_path), "")
 
 
         # results.append(f"min: {min_val} - max: {max_val}, {', '.join(icons)} | base64: {', '.join([b for b in icons_b64 if b])}")
-        results.append(f"{weather_emoji} [{day_num}:{day}] ~ 🔻: {min_val} - 🔺: {max_val} [{weather_description}]|href=asd")
+        results.append(f"{weather_emoji} [{day_num}:{day}] ~ 🔻 {min_val} - 🔺 {max_val} [{weather_description}]|href=asd")
     return results
 
 def hourly_weather() -> list:
