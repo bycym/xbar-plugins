@@ -40,10 +40,19 @@ emoji_dict = {
     "030": "☁️", # borult
     "042": "🌦️", # gyenge eső
     "043": "🌧️", # eső
-    "043s": "🌧️", # eső viharos széllel
+    "043s": "💨🌧️", # eső viharos széllel
     "051": "🌨️", # havas eső
+    "052": "🧊❄️", # ónos eső
+    "061": "🌦️❄️", # hószállingózás
     "062": "❄️", # havazás
+    "062s": "💨❄️", # hófúvás havazással
+    "063": "⛈️❄️", # intenzív havazás
+    "064": "💨❄️", # hó fúvás
+    "065": "❄️", # hófúvás
     "081": "🌧️", # zápor
+    "081": "🌧️", # zápor
+    "083": "🌧️❄️", # hózápor
+    "083": "❄️🌨️", # hózápor
     "090": "⛈️", # zivatar
     "100": "🌫️", # köd
     "310": "☀️", # derült
@@ -51,6 +60,7 @@ emoji_dict = {
     "321": "⛅", # gyengén felhős
     "323": "☁️", # erősen felhős
     "330": "☁️", # borult
+    "363": "❄️", # intenzív havazás
     "400": "🌫️", # köd
 }
 
@@ -130,7 +140,7 @@ def daily_weather() -> list:
             src = img.get('src', '')
             if src.endswith('.svg'):
                 icon_path = src.split('/')[-1].split('.')[0]
-                #print(f"icon_path: {icon_path} :: {weather_description}")
+                print(f"icon_path: {icon_path} :: {weather_description}")
                 weather_emoji = emoji_dict.get(str(icon_path), "")
 
 
@@ -170,7 +180,7 @@ def hourly_weather() -> list:
                 if( not src.startswith('/assets/forecast-icons/')):
                     continue
                 icon_path = src.split('/')[-1].split('.')[0]
-                #print(f"icon_path: {icon_path} :: {weather_description}")
+                print(f"icon_path: {icon_path} :: {weather_description}")
                 weather_emoji = emoji_dict.get(str(icon_path), "")
 
         # results.append(f"min: {min_val} - max: {max_val}, {', '.join(icons)} | base64: {', '.join([b for b in icons_b64 if b])}")
