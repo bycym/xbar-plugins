@@ -28,7 +28,7 @@ CLOSED_PRS=f"https://github.com/pulls?q=is:pr+author:{AUTHOR}+archived:false+is:
 PR_SCRIPT_OUTPUT = []
 PR_LINK=f"https://github.com/pulls?q=is:open+is:pr+author:{AUTHOR}+archived:false+org:{ORG}"
 REVIEW_LINK=f"https://github.com/issues?q=is:pr%20review-requested:{AUTHOR}%20is:open%20archived:false%20draft:false%20(%20author:{AUTHOR}{''.join(str(f'%20OR%20author:{x}+') for x in GITHUB_TEAMMEMBERS)})"
-PR_QUERY=f"?q=type:pr+is:open+author:{AUTHOR}+sort:updated-desc"
+PR_QUERY=f"?q=type:pr+is:open{f'+org:{ORG}'if {ORG} != '' else ''}+author:{AUTHOR}+sort:updated-desc"
 ASSIGNED_QUERY=f"?q=type:pr+is:open+assignee:{AUTHOR}+sort:updated-desc"
 TEAM_REVIEW_QUERY=f"?q=is:pr+review-requested:{AUTHOR}+is:open+archived:false+draft:false+{''.join(str(f'author:{x}+') for x in GITHUB_TEAMMEMBERS)}"
 REVIEW_QUERY=f"?q=is:pr+review-requested:{AUTHOR}+is:open+archived:false"
