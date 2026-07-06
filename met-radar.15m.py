@@ -115,7 +115,7 @@ def daily_weather() -> list:
     soup = BeautifulSoup(html, "html.parser")
     container = soup.find("div", class_="ik daily-forecast-container dailyForecastBiggerContainer")
     if not container:
-        return ["| text=No forecast found"]
+        return ["No forecast found"]
 
     results = []
     daily_forecast_count = 0
@@ -160,7 +160,7 @@ def hourly_weather() -> list:
     soup = BeautifulSoup(html, "html.parser")
     container = soup.find("div", class_="ik new-hourly-forecast-card-container")
     if not container:
-        return ["| text=No forecast found"]
+        return ["No forecast found"]
 
     results = []
     hourly_forecast_count = 0
